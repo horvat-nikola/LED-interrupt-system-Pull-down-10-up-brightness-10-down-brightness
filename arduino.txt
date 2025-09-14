@@ -1,0 +1,28 @@
+#define LED_PIN 9         // LED ko PWM pin 9 par connect karein
+#define BTN_INC 2         // Brightness badhane wala button (Increase)
+#define BTN_DEC 3         // Brightness kam karne wala button (Decrease)
+
+int brightness = 255;     // Arduino ON hone ke baad LED full brightness par rahegi
+const int step = 25;      // Brightness change step size
+
+void setup() {
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(BTN_INC, INPUT_PULLUP);
+    pinMode(BTN_DEC, INPUT_PULLUP);
+
+    analogWrite(LED_PIN, brightness);  // LED ko ON karein (full brightness)
+}
+
+void loop() {
+    if (digitalRead(BTN_INC) == LOW) { // Agar button 1 (Increase) dabaya ho
+        brightness = constrain(brightness + step, 0, 255);
+        analogWrite(LED_PIN, brightness);
+        delay(200);
+    }
+
+    if (digitalRead(BTN_DEC) == LOW) { // Agar button 2 (Decrease) dabaya ho
+        brightness = constrain(brightness - step, 0, 255);
+        analogWrite(LED_PIN, brightness);
+        delay(200);
+    }
+}
